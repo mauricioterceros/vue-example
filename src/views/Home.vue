@@ -8,22 +8,30 @@
 
 <template>
   <div>
-    <span class="line-style text-center">
-      This is using method: {{ getConcatNameWithGroup() }}
+    <span>This is using method: {{ getConcatNameWithGroup() }}</span>
+    <br />
+    <span>
+      JS expression 1: {{ name.split(" ")[0] + " " + name.split(" ")[2] }}
     </span>
     <br />
-    <span class="text-bold">
-      This is using JS expression: {{ name.split(" ")[0] + " " + name.split(" ")[2] }}
-    </span>
+    <span>JS expression 2: {{ `${name} ${group}` }}</span>
     <br />
-    <span> This is using JS expression: {{ `${name} ${group}` }} </span>
+    <br />
+    <br />
+    <span>This is the computed: {{ upperCaseName }}</span>
+    <br />
+    <span>This is the computed: {{ statusColor }}</span>
+    <br />
     <br />
     <button @click="changeName('student lastname second')">CHANGE NAME</button>
-    <button @click="save()">SAVE</button>
-    <button @click="changeSiteName('new outside name')">
-      CHANGE SITE NAME
+    <button @click="updateStatus()">Update Status</button>
+    <button @click="changeClassName('Progra')">
+      CHANGE PROGRA
     </button>
-    <HelloWorld :site-name="siteName" class-hour="20:30" />
+    <button @click="changeClassName('DB')">
+      CHANGE DB
+    </button>
+    <HelloWorld :site-name="className" :class-hour="classHour" />
   </div>
 </template>
 
@@ -46,7 +54,9 @@ export default {
     return {
       name: "mauricio terceros rojas",
       group: "certificacion",
-      siteName: "Certi from outside"
+      className: "Certi from outside",
+      status: "busy",
+      classHour: "19:00"
     };
   },
 
@@ -56,10 +66,41 @@ export default {
     // props here => see at HelloWorld.vue
   },
 
+  // auto calculated variables
+  // It is not necessary to assign due these are auto calculated based on:
+  // the reactive data/properties
+  computed: {
+    upperCaseName() {
+      // more code
+      return this.name.toUpperCase() + "ADDDDD";
+    },
+    statusColor() {
+      let color = "red";
+      if (this.status === "available") {
+        color = "green";
+      }
+      return color;
+    }
+  },
+
+  watch: {
+    className: {
+      handler: function(newVal, oldVal) {
+        if (newVal === "Progra") {
+          this.classHour = "10:00";
+        } else {
+          this.classHour = "19:00";
+        }
+        console.log(oldVal);
+      },
+      deep: true
+    }
+  },
+
   // START LIFECYCLE HOOKS (OPTIONAL)
   created() {
     // this.name = "mauricio t r";
-    // this.siteName = "certi!"; // it is allowed but is not recommendable
+    // this.className = "certi!"; // it is allowed but is not recommendable
     // http://api.com/products/{id}
   },
   mounted() {
@@ -82,14 +123,17 @@ export default {
       // this.$data.name === this.name
       // return this.name + " new group is: " + this.group;
       // this === vm
-      return `${this.name} new group is: ${this.group}`; // string template
+      return `${this.upperCaseName} new group is: ${this.group}`; // string template
     },
     // setter
     changeName(newName) {
       this.name = newName;
     },
-    changeSiteName(newSiteName) {
-      this.siteName = newSiteName;
+    changeClassName(newclassName) {
+      this.className = newclassName;
+    },
+    updateStatus() {
+      this.status = "available";
     },
     // action
     save() {
