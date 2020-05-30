@@ -1,4 +1,4 @@
-<!-- 
+<!--
   When template, script, and style is in one file: SINGLE FILE COMPONENT
   PROS: Portable, accessible
   CONS: TOO LARGE
@@ -8,7 +8,7 @@
 
 <template>
   <div>
-    <span>This is using method: {{ getConcatNameWithGroup() }}</span>
+    <!--span>This is using method: {{ getConcatNameWithGroup() }}</span>
     <br />
     <span>
       JS expression 1: {{ name.split(" ")[0] + " " + name.split(" ")[2] }}
@@ -23,21 +23,57 @@
     <span>This is the computed: {{ statusColor }}</span>
     <br />
     <br />
-    <button @click="changeName('student lastname second')">CHANGE NAME</button>
+    
     <button @click="updateStatus()">Update Status</button>
     <button @click="changeClassName('Progra')">
       CHANGE PROGRA
     </button>
     <button @click="changeClassName('DB')">
       CHANGE DB
-    </button>
-    <HelloWorld :site-name="className" :class-hour="classHour" />
+    </button-->
+    <!--HelloWorld :site-name="className" :class-hour="classHour" /-->
+
+
+
+    <!--label>NOMBRE</label>
+    <br />
+    <br />
+    <span> {{ name }} </span>
+    <br />
+    <button @click="changeName('student lastname second')">CHANGE NAME</button>
+    <br />
+    <span> {{ upperCaseName }} </span>
+    <br />
+    <select v-model="selectedOption">
+      <option>UNO</option>
+      <option>DOS</option>
+      <option>TRES</option>
+    </select>
+    <br />
+    <button @click="saveName()">SAVE</button-->
+
+    <div :key="item.name + '1'" v-for="item in list">
+      <span>{{ item.name }}</span>
+      <br />
+      <span>{{ item.desc }}</span>
+      <br />
+    </div>
+
+    <input v-model="name" placeholder="escriba su nombre" />
+    <br />
+    <div :key="item.name" v-for="item in filteredList">
+      <span>{{ item.name }}</span>
+      <br />
+      <span>{{ item.desc }}</span>
+      <br />
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+// import HelloWorld from "@/components/HelloWorld.vue";
+// import * as data from "./items.json";
 // import NewCOmponet from "./About.vue"
 
 export default {
@@ -45,18 +81,35 @@ export default {
   name: "Home",
 
   components: {
-    HelloWorld
+    // HelloWorld
   },
 
   // Init when component is been created
   data() {
     // like "private" properties
     return {
-      name: "mauricio terceros rojas",
+      name: "",
       group: "certificacion",
       className: "Certi from outside",
       status: "busy",
-      classHour: "19:00"
+      classHour: "19:00",
+      selectedOption: "",
+      radioSelect: "",
+      radioOptionA: "HOLA",
+      list: [
+        {
+          name: "item1",
+          desc: "desc1"
+        },
+        {
+          name: "item2",
+          desc: "desc2"
+        },
+        {
+          name: "intem3",
+          desc: "desc3"
+        }
+      ]
     };
   },
 
@@ -70,9 +123,17 @@ export default {
   // It is not necessary to assign due these are auto calculated based on:
   // the reactive data/properties
   computed: {
+    filteredList() {
+      return this.name === ""
+        ? this.list
+        : this.list.filter(item => item.name === this.name);
+    },
     upperCaseName() {
       // more code
-      return this.name.toUpperCase() + "ADDDDD";
+
+      /* eslint-disable */
+      return this.name.toUpperCase() + 'ADDDDD';
+      /* eslint-enable */
     },
     statusColor() {
       let color = "red";
@@ -86,12 +147,14 @@ export default {
   watch: {
     className: {
       handler: function(newVal, oldVal) {
-        if (newVal === "Progra") {
-          this.classHour = "10:00";
-        } else {
-          this.classHour = "19:00";
+        if (newVal !== oldVal) {
+          if (newVal === "Progra") {
+            this.classHour = "10:00";
+          } else {
+            this.classHour = "19:00";
+          }
+          console.log(oldVal);
         }
-        console.log(oldVal);
       },
       deep: true
     }
@@ -123,6 +186,7 @@ export default {
       // this.$data.name === this.name
       // return this.name + " new group is: " + this.group;
       // this === vm
+      debugger;
       return `${this.upperCaseName} new group is: ${this.group}`; // string template
     },
     // setter
@@ -140,7 +204,10 @@ export default {
       console.log("SAVED!");
     },
     cancel() {},
-    export() {}
+    export() {},
+    saveName() {
+      console.log("SAVED ===> " + this.name + this.selectedOption);
+    }
   }
 };
 </script>

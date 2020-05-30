@@ -9,4 +9,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount("#app"); //document.getElementById('#app')
+}).$mount("#app"); // document.getElementById('#app')
