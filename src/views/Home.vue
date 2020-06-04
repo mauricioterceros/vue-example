@@ -33,8 +33,6 @@
     </button-->
     <!--HelloWorld :site-name="className" :class-hour="classHour" /-->
 
-
-
     <!--label>NOMBRE</label>
     <br />
     <br />
