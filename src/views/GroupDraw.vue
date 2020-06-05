@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import studentData from "./students.json";
+// import studentData from "./students.json";
+import { mapGetters } from "vuex";
 
 export default {
   name: "GroupDraw",
 
   data() {
     return {
-      students: studentData.students,
       groups: [
         { id: 0, name: "Group 1", students: [] },
         { id: 1, name: "Group 2", students: [] },
@@ -43,6 +43,13 @@ export default {
         { id: 3, name: "Group 4", students: [] }
       ]
     };
+  },
+
+  computed: {
+    ...mapGetters(["getStudentList"]),
+    students() {
+      return this.getStudentList;
+    }
   },
 
   methods: {

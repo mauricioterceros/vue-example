@@ -26,6 +26,11 @@ const routes = [
     path: "/GroupDraw", // browser
     name: "GroupDraw", // router instance => $router.push('GroupDraw')
     component: () => import("@/views/GroupDraw.vue")
+  },
+  {
+    path: "/StoreExample",
+    name: "StoreExample",
+    component: () => import("@/views/StoreExample.vue")
   }
 ];
 
