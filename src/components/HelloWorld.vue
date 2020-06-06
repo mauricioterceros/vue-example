@@ -3,6 +3,7 @@
     <h1>{{ siteName }}</h1>
     <h2>{{ classHour }}</h2>
     <span>{{ name }}</span>
+    <span>{{ msg }}</span>
     <span v-if="showNameAndGroup">
       This is using data: {{ name }} belongs to group {{ group }}
     </span>
@@ -45,6 +46,10 @@ export default {
       default: function() {
         return {};
       }
+    },
+    msg: {
+      type: String,
+      default: ""
     }
   }
 };
