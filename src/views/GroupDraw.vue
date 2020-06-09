@@ -1,9 +1,12 @@
 <template>
   <div id="main-container" class="main-container">
-    <div id="students-class-container">
+    <div id="students-class-container" class="student-container">
+      <span id="students-list-title" class="student-container">
+        students list
+      </span>
       <div :key="student.name" v-for="student in students">
         <ul>
-          <li>
+          <li class="student-name">
             {{ student.name }}
           </li>
         </ul>
@@ -13,7 +16,7 @@
       <button @click="drawStudents">DRAW</button>
     </div>
     <div id="group-students-class-container">
-      <div :key="group.id" v-for="group in groups">
+      <div :key="group.id" v-for="group in groups" class="student-container">
         <h2>{{ group.name }}</h2>
         <div :key="index" v-for="(student, index) in group.students">
           <ul>
@@ -54,6 +57,10 @@ export default {
   },
 
   methods: {
+    delete() {
+      // modify state
+      alert("success")
+    },
     _getGroupNumber() {
       const selectedGroupNumber = Math.floor(Math.random() * 4);
       const foundGroup = this.groups.find(
@@ -81,4 +88,18 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.student-container {
+  color: brown;
+}
+
+#students-list-title {
+  font-size: 34px;
+  color: green;
+}
+
+li {
+  font-weight: 900;
+  color: blue;
+}
+</style>
