@@ -59,7 +59,7 @@ export default {
   methods: {
     delete() {
       // modify state
-      alert("success")
+      alert("success");
     },
     _getGroupNumber() {
       const selectedGroupNumber = Math.floor(Math.random() * 4);
