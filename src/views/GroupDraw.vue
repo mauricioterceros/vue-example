@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import studentData from "./students.json";
-// import { mapGetters } from "vuex";
+// import studentData from "./students.json";
+import { mapGetters } from "vuex";
 
 export default {
   name: "GroupDraw",
@@ -49,10 +49,10 @@ export default {
   },
 
   computed: {
-    // ...mapGetters(["getStudentList"]),
+    ...mapGetters(["getStudentList"]),
     students() {
-      // return this.getStudentList;
-      return studentData.students;
+      return this.getStudentList;
+      // return studentData.students;
     }
   },
 
