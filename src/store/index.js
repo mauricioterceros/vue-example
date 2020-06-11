@@ -31,12 +31,25 @@ export default new Vuex.Store({
       // DO NOT! NEVER! => state.students.push(student);
       commit("mutateStudentList", student);
       // only permit one param
+    },
+    updateStudent({ commit }, studentToUpdate) {
+      commit("updateStudent", studentToUpdate);
     }
   },
   mutations: {
     // mutateStudentList(state, param) {
     mutateStudentList(state, student) {
       state.students.push(student);
+    },
+    updateStudent(state, studentToUpdate) {
+      const foundStudentIndex = state.students.findIndex(
+        st => st.id === studentToUpdate.id
+      );
+      // if (index >= 0)
+      state.students[foundStudentIndex] = studentToUpdate;
+    },
+    deleteStudent(state, studetToDelete) {
+      state.students = state.students.filter(st => st.id !== studetToDelete.id);
     }
   },
 

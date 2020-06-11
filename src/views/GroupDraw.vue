@@ -1,5 +1,7 @@
 <template>
   <div id="main-container" class="main-container">
+    <HelloWorld msg="hola from GroupDraw" />
+
     <div id="students-class-container" class="student-container">
       <span id="students-list-title" class="student-container">
         students list
@@ -33,9 +35,12 @@
 <script>
 // import studentData from "./students.json";
 import { mapGetters } from "vuex";
+import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
   name: "GroupDraw",
+
+  components: { HelloWorld },
 
   data() {
     return {

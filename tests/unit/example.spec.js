@@ -114,10 +114,18 @@ describe("Example LocalVue", () => {
       router, // plugin comes from VUEjs.org
       store, // plugin comes from VUEjs.org
       // mock: otherPlugin // plugin not comes from VUEjs.org
-      localVue
+      localVue,
+      stubs: {
+        HelloWorld: true // use the DOM as described in component/view
+        // HelloWorld: '<span class="myclass"> Hello World </span>'
+        /* HelloWorld: {
+          render(g) {},
+          sayHi() {}
+        } */
+      }
     }); // it is like: main.js
 
-
+    console.log("DRAW HTML: " + wrapper.html());
     /**
      * SECOND STAGE: TEST CASES (UI rendering, Controllers logic(methods), others)
      */
