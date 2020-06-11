@@ -1,16 +1,15 @@
 <template>
   <div id="main-container" class="main-container">
+    <v-btn>TEST</v-btn>
     <HelloWorld msg="hola from GroupDraw" />
 
     <div id="students-class-container" class="student-container">
-      <span id="students-list-title" class="student-container">
-        students list
-      </span>
+      <span id="students-list-title" class="student-container"
+        >students list</span
+      >
       <div :key="student.name" v-for="student in students">
         <ul>
-          <li class="student-name">
-            {{ student.name }}
-          </li>
+          <li class="student-name">{{ student.name }}</li>
         </ul>
       </div>
     </div>
@@ -22,9 +21,7 @@
         <h2>{{ group.name }}</h2>
         <div :key="index" v-for="(student, index) in group.students">
           <ul>
-            <li :id="'student.name' + '-' + index">
-              {{ student.name }}
-            </li>
+            <li :id="'student.name' + '-' + index">{{ student.name }}</li>
           </ul>
         </div>
       </div>

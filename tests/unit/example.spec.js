@@ -1,17 +1,16 @@
-import {
-  expect,
-  assert
-} from "chai";
-import {
-  shallowMount,
-  createLocalVue,
-  mount
-} from "@vue/test-utils";
+// CHAI
+import { expect, assert } from "chai";
+// VUE TEST UTILS
+import { shallowMount, createLocalVue, mount } from "@vue/test-utils";
+// components
 import HelloWorld from "@/components/HelloWorld.vue";
 import GroupDraw from "@/views/GroupDraw.vue";
+// mock data
+import { mockStore } from "./mockStore";
+// plugins
 import VueRouter from "vue-router";
 import Vuex from "vuex";
-import { mockStore } from "./mockStore";
+import Vuetify from "vuetify";
 
 describe("HelloWorld.vue", () => {
   it("renders props.msg when passed", () => {
@@ -105,14 +104,17 @@ describe("Example LocalVue", () => {
     // injecting plugins/ use plugins ==> instead of ==> Vue.use
     localVue.use(VueRouter);
     localVue.use(Vuex);
+    localVue.use(Vuetify);
 
     // config/init plugins ==> like the creations of new instance of plugins
     const router = new VueRouter({ routes: [] }); // it required for: this.$routes
     const store = new Vuex.Store(mockStore); // it required for: mapGetters /or/ mapActions
+    const vuetify = new Vuetify();
 
     const wrapper = mount(GroupDraw, {
       router, // plugin comes from VUEjs.org
       store, // plugin comes from VUEjs.org
+      vuetify, // plugin for Vuetify
       // mock: otherPlugin // plugin not comes from VUEjs.org
       localVue,
       stubs: {
