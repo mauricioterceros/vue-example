@@ -31,6 +31,11 @@ const routes = [
     path: "/StoreExample",
     name: "StoreExample",
     component: () => import("@/views/StoreExample.vue")
+  },
+  {
+    path: "/ConditionalStyles",
+    name: "ConditionalStyles",
+    component: () => import("@/views/ConditionalStyles.vue")
   }
 ];
 
