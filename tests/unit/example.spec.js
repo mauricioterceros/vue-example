@@ -7,6 +7,15 @@ import HelloWorld from "@/components/HelloWorld.vue";
 import GroupDraw from "@/views/GroupDraw.vue";
 // mock data
 import { mockStore } from "./mockStore";
+/* Recommended for actions/mutations */
+import store from "@/store";
+
+/* 
+import actions from "./actions";
+import mutations from "./actions";
+import getters from "./actions";
+*/
+
 // plugins
 import VueRouter from "vue-router";
 import Vuex from "vuex";
@@ -139,5 +148,29 @@ describe("Example LocalVue", () => {
     wrapper.vm.drawStudents();
     // SECOND TEST CASE: students groups should contain 5 students after draw
     assert.equal(firstGroup.students.length, expectedInitialLength);
+  });
+
+  it("using the store directly", () => {
+    const localVue = createLocalVue();
+    localVue.use(VueRouter);
+    localVue.use(Vuex);
+    localVue.use(Vuetify);
+    const router = new VueRouter({ routes: [] }); // it required for: this.$routes
+    // using the store imported directly instead of mockStore
+    // const store = new Vuex.Store({ mockStore }); // it required for: mapGetters /or/ mapActions
+    const vuetify = new Vuetify({});
+
+    const wrapper = mount(GroupDraw, {
+      router,
+      store, // comes from import directly
+      vuetify,
+      localVue,
+      stubs: {
+        HelloWorld: true
+      }
+    });
+
+    // How to test store:
+    assert(wrapper.vm.$store.state.students.length, 3);
   });
 });
