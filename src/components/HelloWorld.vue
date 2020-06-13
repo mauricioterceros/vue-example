@@ -1,5 +1,9 @@
 <template>
-  <div class="hello">{{ msg }}</div>
+  <div>
+    <div class="hello">{{ msg }}</div>
+    <input v-model="this.itemToEdit.name" />
+    <button @click="save">SAVE</button>
+  </div>
 </template>
 
 <script>
@@ -8,8 +12,16 @@ export default {
 
   data() {
     return {
-      name: "NAME IN HELLO WORLD"
+      name: "NAME IN HELLO WORLD",
+      itemToEdit: {}
     };
+  },
+
+  mounted() {
+    // const found = this.$store.state.items.find(...) // NOT A GOOD PRACTICE to access directly to state :(
+    const found = {};
+    // deep clone: JSON.strigify / JSON.parse
+    this.itemToEdit = Object.assign({}, found);
   },
 
   // LIKE LIKE "" data ""
@@ -24,6 +36,9 @@ export default {
   methods: {
     sayHi() {
       return "hi";
+    },
+    save() {
+      // this.saveImte(this.itemToEdit) // from mapActions
     }
   }
 };
