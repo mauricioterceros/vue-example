@@ -21,6 +21,35 @@ import VueRouter from "vue-router";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
 
+
+
+
+/// MOCK LOCAL STORAGE
+function storageMock() {
+  let storage = {};
+
+  return {
+    setItem: function (key, value) {
+      storage[key] = value || '';
+    },
+    getItem: function (key) {
+      return key in storage ? storage[key] : null;
+    },
+    removeItem: function (key) {
+      delete storage[key];
+    },
+    get length() {
+      return Object.keys(storage).length;
+    },
+    key: function (i) {
+      const keys = Object.keys(storage);
+      return keys[i] || null;
+    }
+  };
+}
+//////////////////////
+
+
 describe("HelloWorld.vue", () => {
   it("renders props.msg when passed", () => {
     const msg = "new message";
@@ -171,6 +200,27 @@ describe("Example LocalVue", () => {
     });
 
     // How to test store:
-    assert(wrapper.vm.$store.state.students.length, 3);
+    assert.equal(wrapper.vm.$store.state.students.length, 3);
+  });
+
+  it("unit test for local storage", () => {
+    // Create MOCK for localStorage, see method above
+    global.localStorage = storageMock();
+    //
+
+    // Other setup
+    const localVue = createLocalVue();
+
+    const wrapper = mount(GroupDraw, {
+      store,
+      localVue,
+      stubs: {
+        HelloWorld: true
+      }
+    });
+
+    const accountToAdd = { name: "a" };
+    wrapper.vm.addAccount(accountToAdd);
+    assert.equal(global.localStorage.getItem("account"), accountToAdd);
   });
 });

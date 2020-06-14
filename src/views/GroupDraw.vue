@@ -4,9 +4,7 @@
     <HelloWorld msg="hola from GroupDraw" />
 
     <div id="students-class-container" class="student-container">
-      <span id="students-list-title" class="student-container"
-        >students list</span
-      >
+      <span id="students-list-title" class="student-container">students list</span>
       <div :key="student.name" v-for="student in students">
         <ul>
           <li class="student-name">{{ student.name }}</li>
@@ -59,6 +57,9 @@ export default {
   },
 
   methods: {
+    addAccount(accountToAdd) {
+      localStorage.setItem("account", accountToAdd);
+    },
     delete() {
       // modify state
       alert("success");
