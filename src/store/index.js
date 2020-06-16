@@ -46,10 +46,13 @@ export default new Vuex.Store({
         st => st.id === studentToUpdate.id
       );
       // if (index >= 0)
-      state.students[foundStudentIndex] = studentToUpdate;
+      // state.students[foundStudentIndex] = studentToUpdate;
+      state.student.splice(foundStudentIndex, 1, studentToUpdate);
     },
     deleteStudent(state, studetToDelete) {
       state.students = state.students.filter(st => st.id !== studetToDelete.id);
+      // alternative
+      // state.student.splice(foundStudentIndex, 0);
     }
   },
 
